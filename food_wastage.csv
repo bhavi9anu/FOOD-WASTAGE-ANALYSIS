@@ -1,0 +1,11 @@
+City,Food_Type,Quantity_kg,Wastage_Reason
+Chennai,Rice,120,Overproduction
+Chennai,Vegetables,80,Spoilage
+Coimbatore,Bread,60,Expired
+Madurai,Rice,90,Overproduction
+Salem,Fruits,70,Spoilage
+Trichy,Vegetables,50,Storage Issue
+Erode,Bread,40,Expired
+Chennai,Fruits,100,Spoilage
+Coimbatore,Rice,110,Overproduction
+Madurai,Vegetables,65,Storage Issue
