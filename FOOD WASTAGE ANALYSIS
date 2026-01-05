@@ -1,0 +1,120 @@
+ ==============================
+# FOOD WASTAGE ANALYSIS PROJECT
+# Google Colab – Single Code
+# ==============================
+
+# Install required libraries
+!pip install pandas matplotlib
+
+# ------------------------------
+# Import libraries
+# ------------------------------
+import pandas as pd
+import matplotlib.pyplot as plt
+from IPython.display import HTML
+
+# ------------------------------
+# Create Dataset
+# ------------------------------
+data = {
+    "City": [
+        "Chennai","Chennai","Coimbatore","Madurai","Salem",
+        "Trichy","Erode","Chennai","Coimbatore","Madurai"
+    ],
+    "Food_Type": [
+        "Rice","Vegetables","Bread","Rice","Fruits",
+        "Vegetables","Bread","Fruits","Rice","Vegetables"
+    ],
+    "Quantity_kg": [120, 80, 60, 90, 70, 50, 40, 100, 110, 65],
+    "Wastage_Reason": [
+        "Overproduction","Spoilage","Expired","Overproduction","Spoilage",
+        "Storage Issue","Expired","Spoilage","Overproduction","Storage Issue"
+    ]
+}
+
+df = pd.DataFrame(data)
+
+# ------------------------------
+# Data Analysis
+# ------------------------------
+summary = df.describe()
+
+# ------------------------------
+# Visualization 1: Bar Chart
+# ------------------------------
+plt.figure()
+df.groupby("City")["Quantity_kg"].sum().plot(kind="bar")
+plt.title("Food Wastage by City")
+plt.xlabel("City")
+plt.ylabel("Quantity (kg)")
+plt.tight_layout()
+plt.show()
+
+# ------------------------------
+# Visualization 2: Pie Chart
+# ------------------------------
+plt.figure()
+df.groupby("Wastage_Reason")["Quantity_kg"].sum().plot(
+    kind="pie", autopct="%1.1f%%"
+)
+plt.title("Food Wastage Reasons")
+plt.ylabel("")
+plt.tight_layout()
+plt.show()
+
+# ------------------------------
+# Web Page Style Dashboard
+# ------------------------------
+HTML(f"""
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {{
+    font-family: Arial;
+    padding: 20px;
+}}
+h1 {{
+    color: green;
+}}
+table {{
+    border-collapse: collapse;
+    width: 90%;
+}}
+th, td {{
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}}
+th {{
+    background-color: #f2f2f2;
+}}
+</style>
+</head>
+
+<body>
+
+<h1>🍽️ Food Wastage Analysis Dashboard</h1>
+
+<h2>📋 Dataset</h2>
+{df.to_html(index=False)}
+
+<h2>📊 Statistical Summary</h2>
+{summary.to_html()}
+
+<h2>📌 Key Insights</h2>
+<ul>
+    <li>Rice has the highest wastage due to overproduction</li>
+    <li>Spoilage is the most common wastage reason</li>
+    <li>Chennai and Coimbatore contribute maximum wastage</li>
+</ul>
+
+<h2>🎯 Conclusion</h2>
+<p>
+Food wastage can be reduced by better inventory planning,
+improved storage facilities, and food donation programs.
+</p>
+
+</body>
+</html>
+""")
